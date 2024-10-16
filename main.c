@@ -20,6 +20,21 @@ void verificaPosicao(int tabuleiro[N][N], int linha, int coluna) {
     }
 }
 
+void jogadasPossiveis(int tabuleiro[N][N], int linha, int coluna) {
+    printf("Jogadas possíveis para a peça na linha %d e coluna %d:\n", linha, coluna);
+
+    // Verifica as posições ao redor da peça
+    int direcoes[4][2] = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+    for (int i = 0; i < 4; i++) {
+        int novaLinha = linha + direcoes[i][0];
+        int novaColuna = coluna + direcoes[i][1];
+
+        if (novaLinha >= 0 && novaLinha < N && novaColuna >= 0 && novaColuna < N && tabuleiro[novaLinha][novaColuna] == 0) {
+            printf("Linha %d, Coluna %d\n", novaLinha, novaColuna);
+        }
+    }
+}
+
 void colocarPeca(int tabuleiro[N][N]) {
     int linha, coluna;
     char continuar;
@@ -34,6 +49,7 @@ void colocarPeca(int tabuleiro[N][N]) {
             printf("Posição inválida, fora do tabuleiro. Tente novamente.\n");
         } else {
             verificaPosicao(tabuleiro, linha, coluna);
+            jogadasPossiveis(tabuleiro, linha, coluna);
         }
 
         mostrarTabuleiro(tabuleiro);
@@ -44,10 +60,10 @@ void colocarPeca(int tabuleiro[N][N]) {
 }
 
 int main() {
-
     int tabuleiro[N][N] = {0};
 
     colocarPeca(tabuleiro);
+    jogadasPossiveis(tabuleiro, 0, 0);
 
     return 0;
 }
